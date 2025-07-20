@@ -1,48 +1,174 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-<style>
-.sidebar {
-  position: fixed;
-  left: 0;
-  top: 0;
-  height: 100vh;
-  width: 40px;
-  background: #333;
-  color: white;
-  transition: width 0.3s ease;
-  overflow: hidden;
-}
-.sidebar:hover {
-  width: 200px;
-}
-.menu-item {
-  padding: 15px;
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-}
-.menu-item i {
-  margin-right: 10px;
-  font-size: 20px;
-}
-</style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>带侧边栏的页面</title>
+    <!-- Katex CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: margin-left 0.3s;
+        }
+        
+        /* 侧边栏样式 */
+        #sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #f8f9fa;
+            overflow-x: hidden;
+            transition: 0.3s;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+        
+        #sidebar a {
+            padding: 8px 16px;
+            text-decoration: none;
+            font-size: 16px;
+            color: #333;
+            display: block;
+            transition: 0.2s;
+        }
+        
+        #sidebar a:hover {
+            background-color: #e9ecef;
+        }
+        
+        /* 主内容区域 */
+        #main {
+            padding: 20px;
+            margin-left: 0;
+            transition: margin-left 0.3s;
+        }
+        
+        /* 侧边栏开关按钮 */
+        .sidebar-toggle {
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #f8f9fa;
+            border: none;
+            padding: 10px 15px;
+            position: fixed;
+            left: 10px;
+            top: 10px;
+            z-index: 2;
+            border-radius: 5px;
+        }
+        
+        /* 返回顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-image: url('back-to-top.png');
+            background-size: cover;
+            cursor: pointer;
+            display: none;
+            z-index: 99;
+            border: none;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        /* 响应式调整 */
+        @media screen and (max-height: 450px) {
+            #sidebar {padding-top: 15px;}
+            #sidebar a {font-size: 14px;}
+        }
+    </style>
 </head>
 <body>
-<div class="sidebar">
-  <div class="menu-item">
-    <i class="fas fa-home"></i>
-    <span>首页</span>
-  </div>
-  <div class="menu-item">
-    <i class="fas fa-user"></i>
-    <span>个人中心</span>
-  </div>
-  <div class="menu-item">
-    <i class="fas fa-cog"></i>
-    <span>设置</span>
-  </div>
-</div>
+    <!-- 侧边栏开关按钮 -->
+    <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+    
+    <!-- 侧边栏内容 -->
+    <div id="sidebar">
+        <a href="#">首页</a>
+        <a href="#">分类</a>
+        <a href="#">关于</a>
+        <a href="#">联系</a>
+    </div>
+    
+    <!-- 主内容区域 -->
+    <div id="main">
+        <h1>欢迎来到我的网站</h1>
+        <p>这是一个测试。</p>
+        
+        <h2>数学公式测试</h2>
+        <div id="math-example"></div>
+        
+        <p>其他内容...</p>
+        <p style="height: 2000px;">滚动测试...</p>
+    </div>
+    
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" onclick="scrollToTop()"></button>
+    
+    <!-- Katex JS -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+    
+    <script>
+        // 侧边栏开关功能
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const main = document.getElementById('main');
+            
+            if (sidebar.style.width === '250px') {
+                sidebar.style.width = '0';
+                main.style.marginLeft = '0';
+            } else {
+                sidebar.style.width = '250px';
+                main.style.marginLeft = '250px';
+            }
+        }
+        
+        // 返回顶部功能
+        window.onscroll = function() {
+            const backToTopBtn = document.querySelector('.back-to-top');
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                backToTopBtn.style.display = 'block';
+            } else {
+                backToTopBtn.style.display = 'none';
+            }
+        };
+        
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        // 渲染Katex公式
+        document.addEventListener('DOMContentLoaded', function() {
+            const mathExample = document.getElementById('math-example');
+            mathExample.innerHTML = `
+                <p>二次方程求根公式：</p>
+                <p>$$x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$$</p>
+                <p>欧拉公式：</p>
+                <p>$$e^{i\\pi} + 1 = 0$$</p>
+            `;
+            
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false}
+                ],
+                throwOnError: false
+            });
+        });
+    </script>
 </body>
 </html>
