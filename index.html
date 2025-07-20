@@ -88,6 +88,46 @@
             border-radius: 5px;
             overflow-x: auto;
         }
+
+        .highlight {text-decoration: none !important;}
+        /* 基础样式（所有状态共用） */
+        .highlight {
+          font-weight: bold;
+          transition: all 0.3s ease; /* 添加过渡效果 */
+            text-decoration:none;
+        }
+        
+        /* 未访问状态 */
+        .highlight:link {
+          color: #FFFFFF;
+          text-decoration: none;
+        }
+        
+        /* 已访问状态 */
+        .highlight:visited {
+          color: #FFFFFF; 
+          text-decoration:none;
+        }
+        
+        /* 悬停状态 */
+        .highlight:hover {
+          color: #ACEFDB;
+          text-decoration:none;
+        }
+        
+        /* 激活状态（鼠标按下时） */
+        .highlight:active {
+          color: #add8e6;
+          transform: scale(0.98);
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-decoration:none;
+        }
+        
+        /* 焦点状态（键盘导航） */
+        .highlight:focus {
+          outline: 2px solid #f59e0b; /* 橙色轮廓 */
+          outline-offset: 2px;
+        }
     </style>
 </head>
 <body>
