@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>带侧边栏和KaTeX支持的页面</title>
-    <!-- 引入KaTeX CSS -->
+    <title>带侧边栏的页面</title>
+    <!-- Katex CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <style>
         body {
@@ -17,67 +18,56 @@
         /* 侧边栏样式 */
         #sidebar {
             height: 100%;
-            width: 0;
+            width: 50px;
             position: fixed;
-            top: 0;
             left: 0;
-            background-color: #f8f9fa;
+            top: 0;
+            background-color: #333;
             overflow-x: hidden;
-            transition: 0.3s;
-            padding-top: 20px;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            transition: width 0.3s;
             z-index: 1000;
         }
         
-        #sidebar a {
-            padding: 8px 8px 8px 32px;
-            text-decoration: none;
-            font-size: 16px;
-            color: #333;
-            display: block;
-            transition: 0.2s;
+        #sidebar:hover {
+            width: 250px;
         }
         
-        #sidebar a:hover {
-            color: #007bff;
-            background-color: #e9ecef;
+        .sidebar-icon {
+            padding: 15px;
+            text-align: center;
+            color: white;
+            display: flex;
+            align-items: center;
         }
         
-        #sidebar .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 20px;
-            padding: 5px 10px;
+        .sidebar-icon img {
+            width: 30px;
+            height: 30px;
+            margin-right: 15px;
+        }
+        
+        .sidebar-text {
+            display: none;
+            white-space: nowrap;
+        }
+        
+        #sidebar:hover .sidebar-text {
+            display: inline;
         }
         
         /* 主内容区域 */
         #main {
+            margin-left: 50px;
             padding: 20px;
             transition: margin-left 0.3s;
         }
         
-        /* 打开侧边栏按钮 */
-        .open-btn {
-            position: fixed;
-            left: 10px;
-            top: 10px;
-            font-size: 20px;
-            cursor: pointer;
-            background-color: #f8f9fa;
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            z-index: 999;
+        #sidebar:hover ~ #main {
+            margin-left: 250px;
         }
         
         /* 返回顶部按钮 */
-        .back-to-top {
+        #back-to-top {
             position: fixed;
             bottom: 20px;
             right: 20px;
@@ -85,32 +75,16 @@
             height: 50px;
             background-image: url('up.png');
             background-size: contain;
-            background-repeat: no-repeat;
-            background-color: transparent;
-            border: none;
             cursor: pointer;
-            opacity: 0.7;
-            transition: opacity 0.3s;
             display: none;
-            z-index: 99;
+            z-index: 999;
         }
         
-        .back-to-top:hover {
-            opacity: 1;
-        }
-        
-        /* 内容样式 */
-        .content {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        /* KaTeX公式样式 */
-        .katex-equation {
+        /* Katex公式样式 */
+        .katex-formula {
             margin: 20px 0;
             padding: 10px;
-            background-color: #f8f9fa;
+            background-color: #f5f5f5;
             border-radius: 5px;
             overflow-x: auto;
         }
@@ -119,93 +93,56 @@
 <body>
     <!-- 侧边栏 -->
     <div id="sidebar">
-        <button class="close-btn" onclick="closeSidebar()">×</button>
-        <a href="#section1">第一部分</a>
-        <a href="#section2">第二部分</a>
-        <a href="#section3">数学公式示例</a>
-        <a href="#section4">其他内容</a>
+        <div class="sidebar-icon">
+            <img src="icon1.png" alt="图标1">
+            <span class="sidebar-text">菜单项1</span>
+        </div>
+        <div class="sidebar-icon">
+            <img src="icon1.png" alt="图标2">
+            <span class="sidebar-text">菜单项2</span>
+        </div>
+        <div class="sidebar-icon">
+            <img src="icon1.png" alt="图标3">
+            <span class="sidebar-text">菜单项3</span>
+        </div>
     </div>
     
     <!-- 主内容区域 -->
     <div id="main">
-        <!-- 打开侧边栏按钮 -->
-        <button class="open-btn" onclick="openSidebar()">☰</button>
+        <h1>欢迎使用带侧边栏的页面</h1>
+        <p>这是一个示例页面，包含可展开的侧边栏和Katex公式支持。</p>
         
-        <div class="content">
-            <h1 id="section1">第一部分内容</h1>
-            <p>这里是页面的主要内容区域。您可以在这里添加各种内容。</p>
-            
-            <h2 id="section2">第二部分内容</h2>
-            <p>更多内容可以放在这里。侧边栏可以帮助用户快速导航到页面的不同部分。</p>
-            
-            <h2 id="section3">数学公式示例</h2>
-            <p>下面是一些使用KaTeX渲染的数学公式示例：</p>
-            
-            <div class="katex-equation">
-                二次方程求根公式：<br>
-                $ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $
-            </div>
-            
-            <div class="katex-equation">
-                欧拉公式：<br>
-                $ e^{i\pi} + 1 = 0 $
-            </div>
-            
-            <h2 id="section4">其他内容</h2>
-            <p>页面底部的内容。当用户滚动到这里时，返回顶部按钮会显示出来。</p>
-            <p>继续添加更多内容使页面足够长...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
+        <div class="katex-formula">
+            这是一个Katex公式示例：<br>
+            <span id="formula"></span>
         </div>
+        
+        <p>向下滚动页面可以看到返回顶部按钮。</p>
+        <div style="height: 1500px;"></div>
     </div>
     
     <!-- 返回顶部按钮 -->
-    <button class="back-to-top" onclick="scrollToTop()"></button>
+    <div id="back-to-top" title="返回顶部"></div>
     
-    <!-- 引入KaTeX JS -->
+    <!-- Katex JS -->
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
-        onload="renderMathInElement(document.body);"></script>
-    
     <script>
-        // 侧边栏功能
-        function openSidebar() {
-            document.getElementById("sidebar").style.width = "250px";
-            document.getElementById("main").style.marginLeft = "250px";
-        }
-        
-        function closeSidebar() {
-            document.getElementById("sidebar").style.width = "0";
-            document.getElementById("main").style.marginLeft = "0";
-        }
-        
-        // 返回顶部功能
+        // 返回顶部按钮
         window.onscroll = function() {
-            var backToTop = document.querySelector('.back-to-top');
             if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                backToTop.style.display = "block";
+                document.getElementById("back-to-top").style.display = "block";
             } else {
-                backToTop.style.display = "none";
+                document.getElementById("back-to-top").style.display = "none";
             }
         };
         
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
+        document.getElementById("back-to-top").onclick = function() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        };
         
-        // KaTeX自动渲染
-        document.addEventListener("DOMContentLoaded", function() {
-            renderMathInElement(document.body, {
-                delimiters: [
-                    {left: "$$", right: "$$", display: true},
-                    {left: "\$", right: "\$", display: true},
-                    {left: "$", right: "$", display: false},
-                    {left: "\$", right: "\$", display: false}
-                ],
+        // Katex公式渲染
+        document.addEventListener('DOMContentLoaded', function() {
+            katex.render("c = \\pm\\sqrt{a^2 + b^2}", document.getElementById("formula"), {
                 throwOnError: false
             });
         });
