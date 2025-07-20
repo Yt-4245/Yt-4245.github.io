@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>带侧边栏的页面</title>
-    <!-- Katex CSS -->
+    <title>带侧边栏和KaTeX支持的页面</title>
+    <!-- 引入KaTeX CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <style>
         body {
@@ -20,7 +19,6 @@
             height: 100%;
             width: 0;
             position: fixed;
-            z-index: 1;
             top: 0;
             left: 0;
             background-color: #f8f9fa;
@@ -28,10 +26,11 @@
             transition: 0.3s;
             padding-top: 20px;
             box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            z-index: 1000;
         }
         
         #sidebar a {
-            padding: 8px 16px;
+            padding: 8px 8px 8px 32px;
             text-decoration: none;
             font-size: 16px;
             color: #333;
@@ -40,28 +39,41 @@
         }
         
         #sidebar a:hover {
+            color: #007bff;
             background-color: #e9ecef;
+        }
+        
+        #sidebar .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            padding: 5px 10px;
         }
         
         /* 主内容区域 */
         #main {
             padding: 20px;
-            margin-left: 0;
             transition: margin-left 0.3s;
         }
         
-        /* 侧边栏开关按钮 */
-        .sidebar-toggle {
+        /* 打开侧边栏按钮 */
+        .open-btn {
+            position: fixed;
+            left: 10px;
+            top: 10px;
             font-size: 20px;
             cursor: pointer;
             background-color: #f8f9fa;
             border: none;
-            padding: 10px 15px;
-            position: fixed;
-            left: 10px;
-            top: 10px;
-            z-index: 2;
-            border-radius: 5px;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 999;
         }
         
         /* 返回顶部按钮 */
@@ -71,74 +83,110 @@
             right: 20px;
             width: 50px;
             height: 50px;
-            background-image: url('back-to-top.png');
-            background-size: cover;
+            background-image: url('up.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-color: transparent;
+            border: none;
             cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s;
             display: none;
             z-index: 99;
-            border: none;
-            border-radius: 50%;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
         
-        /* 响应式调整 */
-        @media screen and (max-height: 450px) {
-            #sidebar {padding-top: 15px;}
-            #sidebar a {font-size: 14px;}
+        .back-to-top:hover {
+            opacity: 1;
+        }
+        
+        /* 内容样式 */
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* KaTeX公式样式 */
+        .katex-equation {
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            overflow-x: auto;
         }
     </style>
 </head>
 <body>
-    <!-- 侧边栏开关按钮 -->
-    <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
-    
-    <!-- 侧边栏内容 -->
+    <!-- 侧边栏 -->
     <div id="sidebar">
-        <a href="#">首页</a>
-        <a href="#">???</a>
+        <button class="close-btn" onclick="closeSidebar()">×</button>
+        <a href="#section1">第一部分</a>
+        <a href="#section2">第二部分</a>
+        <a href="#section3">数学公式示例</a>
+        <a href="#section4">其他内容</a>
     </div>
     
     <!-- 主内容区域 -->
     <div id="main">
-        <h1>欢迎来到我的网站</h1>
-        <p>这是一个测试。</p>
+        <!-- 打开侧边栏按钮 -->
+        <button class="open-btn" onclick="openSidebar()">☰</button>
         
-        <h2>数学公式测试</h2>
-        <div id="math-example"></div>
-        
-        <p>其他内容...</p>
-        <p style="height: 2000px;">滚动测试...</p>
+        <div class="content">
+            <h1 id="section1">第一部分内容</h1>
+            <p>这里是页面的主要内容区域。您可以在这里添加各种内容。</p>
+            
+            <h2 id="section2">第二部分内容</h2>
+            <p>更多内容可以放在这里。侧边栏可以帮助用户快速导航到页面的不同部分。</p>
+            
+            <h2 id="section3">数学公式示例</h2>
+            <p>下面是一些使用KaTeX渲染的数学公式示例：</p>
+            
+            <div class="katex-equation">
+                二次方程求根公式：<br>
+                $ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $
+            </div>
+            
+            <div class="katex-equation">
+                欧拉公式：<br>
+                $ e^{i\pi} + 1 = 0 $
+            </div>
+            
+            <h2 id="section4">其他内容</h2>
+            <p>页面底部的内容。当用户滚动到这里时，返回顶部按钮会显示出来。</p>
+            <p>继续添加更多内容使页面足够长...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+        </div>
     </div>
     
     <!-- 返回顶部按钮 -->
     <button class="back-to-top" onclick="scrollToTop()"></button>
     
-    <!-- Katex JS -->
+    <!-- 引入KaTeX JS -->
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
     
     <script>
-        // 侧边栏开关功能
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const main = document.getElementById('main');
-            
-            if (sidebar.style.width === '250px') {
-                sidebar.style.width = '0';
-                main.style.marginLeft = '0';
-            } else {
-                sidebar.style.width = '250px';
-                main.style.marginLeft = '250px';
-            }
+        // 侧边栏功能
+        function openSidebar() {
+            document.getElementById("sidebar").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+        }
+        
+        function closeSidebar() {
+            document.getElementById("sidebar").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
         }
         
         // 返回顶部功能
         window.onscroll = function() {
-            const backToTopBtn = document.querySelector('.back-to-top');
+            var backToTop = document.querySelector('.back-to-top');
             if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                backToTopBtn.style.display = 'block';
+                backToTop.style.display = "block";
             } else {
-                backToTopBtn.style.display = 'none';
+                backToTop.style.display = "none";
             }
         };
         
@@ -149,20 +197,14 @@
             });
         }
         
-        // 渲染Katex公式
-        document.addEventListener('DOMContentLoaded', function() {
-            const mathExample = document.getElementById('math-example');
-            mathExample.innerHTML = `
-                <p>二次方程求根公式：</p>
-                <p>$$x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$$</p>
-                <p>欧拉公式：</p>
-                <p>$$e^{i\\pi} + 1 = 0$$</p>
-            `;
-            
+        // KaTeX自动渲染
+        document.addEventListener("DOMContentLoaded", function() {
             renderMathInElement(document.body, {
                 delimiters: [
-                    {left: '$$', right: '$$', display: true},
-                    {left: '$', right: '$', display: false}
+                    {left: "$$", right: "$$", display: true},
+                    {left: "\$", right: "\$", display: true},
+                    {left: "$", right: "$", display: false},
+                    {left: "\$", right: "\$", display: false}
                 ],
                 throwOnError: false
             });
