@@ -35,7 +35,6 @@
         .sidebar-icon {
             padding: 15px;
             text-align: center;
-            color: white;
             display: flex;
             align-items: center;
         }
@@ -50,7 +49,24 @@
             display: none;
             white-space: nowrap;
         }
+
+        .sidebar-icon a{
+            color:white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-icon a:hover {
+            color: #ACEFDB;
+        }
         
+        .sidebar-icon a:active {
+            color: #add8e6;
+            transform: scale(0.98);
+        }
+        
+                
         #sidebar:hover .sidebar-text {
             display: inline;
         }
@@ -148,6 +164,8 @@
     <!-- 主内容区域 -->
     <div id="main">
         <h1>Hi！</h1>
+
+        <p>不要看到这个页面就认为我是巨佬，因为大部分内容是AI写的。</p>
         <p>这里不知道写什么，放专栏吧。</p>
         
         <div class="katex-formula">
