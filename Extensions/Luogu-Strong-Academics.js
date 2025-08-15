@@ -7,8 +7,8 @@
 // @description  tuifei breaker
 // @match        *://*/*
 // @grant        none
-// @updateURL    https://
-// @downloadURL  https://?
+// @updateURL    https://raw.githubusercontent.com/Yt-4245/Yt-4245.github.io/refs/heads/main/Extensions/Luogu-Strong-Academics.js
+// @downloadURL  https://raw.githubusercontent.com/Yt-4245/Yt-4245.github.io/refs/heads/main/Extensions/Luogu-Strong-Academics.js
 // @license      MIT
 // @run-at       document-start
 // ==/UserScript==
