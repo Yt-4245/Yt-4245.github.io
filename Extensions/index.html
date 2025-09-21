@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页 | Yt-4245.github.io</title>
+    <!-- Katex CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <!-- 侧边栏 -->
+    <div id="sidebar">
+        <div class="sidebar-icon">
+            <a href= "https://Yt-4245.github.io" class="highlight">
+            <img src="icon1.png" alt="图标">
+            <span class="sidebar-text">首页</span>
+            </a>
+        </div>
+        <div class="sidebar-icon">
+            <a href= "https://yt-4245.github.io/article">
+            <img src="articleicon.png" alt="图标">
+            <span class="sidebar-text">文章广场</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="header">这里是一个顶栏测试。</div>
+    
+    <!-- 主内容区域 -->
+    <div id="main">
+      <h1>插件中心</h1>
+      <p>正在试图写一个漂亮的CSS，别急。</p>
+    </div>
+    
+    <!-- Katex JS -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script>
+        
+        // Katex公式渲染
+        document.addEventListener('DOMContentLoaded', function() {
+            katex.render("c = \\pm\\sqrt{a^2 + b^2}", document.getElementById("formula"), {
+                throwOnError: false
+            });
+        });
+    </script>
+</body>
+</html>
