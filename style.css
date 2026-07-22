@@ -21,6 +21,15 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
           box-sizing: border-box;
         }
+
+        #card {
+          width: 300px;
+          padding: 20px;
+          border-radius: 15px; /* 圆角 */
+          background-color: #fff;
+          box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 阴影 */
+        }
+
         
         #sidebar {
             height: 100%;
