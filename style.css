@@ -1,169 +1,377 @@
-@font-face {
-              font-family: 'Ubuntu';
-              src: url('Ubuntu-M.ttf') format('truetype');
-            }
-        body {
-            font-family: Ubuntu;
-            margin: 0;
-            padding: 0;
-            transition: margin-left 0.3s;
-        }
+/* =====================================================
+   基础设置
+   ===================================================== */
 
-      .header {
-            width: 100%;
-            height: 80px;
-            background: linear-gradient(135deg, #acefdb, #add8e6);
-            color: white;
-            text-align: left;
-            padding-left:270px;
-            line-height: 80px;
-            font-size: 24px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-          box-sizing: border-box;
-        }
+* {
+    box-sizing: border-box;
+    user-select: none;
+}
 
-        #card {
-          width: 300px;
-          padding: 20px;
-          border-radius: 15px; /* 圆角 */
-          background-color: #ddd;
-          box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 阴影 */
-        }
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
 
-        
-        #sidebar {
-            height: 100%;
-            width: 50px;
-            position: fixed;
-            left: 0;
-            top: 0;
-            background-color: #333;
-            overflow-x: hidden;
-            transition: width 0.3s;
-            z-index: 1000;
-        }
-        
-        #sidebar:hover {
-            width: 250px;
-        }
-        
-        .sidebar-icon {
-            padding: 15px;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            overflow: hidden;
-        }
-        
-        .sidebar-text {
-            opacity: 0;
-            width: 0;
-            transition: opacity 0.3s ease, width 0.3s ease;
-            display:none;
-            white-space: nowrap;
-        }
-        
-        #sidebar:hover .sidebar-text {
-            opacity: 1;
-            width: auto;
-        }
-        
-        .sidebar-icon img {
-            width: 30px;
-            height: 30px;
-            margin-right: 15px;
-        }
+    overflow: hidden;
 
-        .sidebar-icon a{
-            color:white;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
+    font-family:
+        "Segoe UI",
+        "Microsoft YaHei",
+        Arial,
+        sans-serif;
 
-        .sidebar-icon a:hover {
-            color: #ACEFDB;
-        }
-        
-        .sidebar-icon a:active {
-            color: #add8e6;
-            transform: scale(0.98);
-        }
-        
-                
-        #sidebar:hover .sidebar-text {
-            display: inline;
-        }
-        
-        /* 主内容区域 */
-        #main {
-            margin-left: 250px;
-            padding: 20px;
-        }
-        
-        #sidebar:hover ~ #main {
-            margin-left: 250px;
-        }
-        
-        /* 返回顶部按钮 */
-        #back-to-top {
-            position: fixed;
-            bottom: 0px;
-            right: 0px;
-            width: 100px;
-            height: 100px;
-            background-image: url('up.png');
-            background-size: contain;
-            cursor: pointer;
-            display: none;
-            z-index: 999;
-        }
-        
-        /* Katex公式样式 */
-        .katex-formula {
-            margin: 20px 0;
-            padding: 10px;
-            background-color: #f5f5f5;
-            border-radius: 5px;
-            overflow-x: auto;
-        }
+    background: #000;
+}
 
-        .highlight {text-decoration: none !important;}
-        /* 基础样式（所有状态共用） */
-        .highlight {
-          font-weight: bold;
-          transition: all 0.3s ease; /* 添加过渡效果 */
-            text-decoration:none;
-        }
-        
-        /* 未访问状态 */
-        .highlight:link {
-          color: #FFFFFF;
-          text-decoration: none;
-        }
-        
-        /* 已访问状态 */
-        .highlight:visited {
-          color: #FFFFFF; 
-          text-decoration:none;
-        }
-        
-        /* 悬停状态 */
-        .highlight:hover {
-          color: #ACEFDB;
-          text-decoration:none;
-        }
-        
-        /* 激活状态（鼠标按下时） */
-        .highlight:active {
-          color: #add8e6;
-          transform: scale(0.98);
-          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            text-decoration:none;
-        }
-        
-        /* 焦点状态（键盘导航） */
-        .highlight:focus {
-          outline: 2px solid #f59e0b; /* 橙色轮廓 */
-          outline-offset: 2px;
-        }
+
+/* =====================================================
+   桌面
+   ===================================================== */
+
+#desktop {
+    position: relative;
+
+    width: 100vw;
+    height: 100vh;
+
+    overflow: hidden;
+
+    /*
+     * 桌面和任务栏使用同一张图片。
+     */
+    background-image: url("assets/desktop.png");
+    background-size: cover;
+    background-position: center;
+
+    color: #222;
+}
+
+
+/*
+ * 如果希望严格限制为 16:9，
+ * 可以通过 JS / CSS 进行处理。
+ *
+ * 当前页面按照 16:9 设计。
+ */
+
+
+/* =====================================================
+   伪窗口
+   ===================================================== */
+
+.fake-window {
+    position: absolute;
+
+    min-width: 180px;
+    min-height: 100px;
+
+    background: #f5f5f5;
+
+    border: 1px solid rgba(0, 0, 0, 0.35);
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.30),
+        0 2px 5px rgba(0, 0, 0, 0.15);
+
+    overflow: hidden;
+
+    /*
+     * Windows 10 风格
+     */
+    border-radius: 2px;
+}
+
+
+/* =====================================================
+   窗口标题栏
+   ===================================================== */
+
+.window-titlebar {
+    position: relative;
+
+    width: 100%;
+    height: 32px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    background: #f2f2f2;
+
+    border-bottom: 1px solid #d6d6d6;
+
+    cursor: grab;
+
+    z-index: 10;
+}
+
+
+.window-titlebar:active {
+    cursor: grabbing;
+}
+
+
+/* =====================================================
+   窗口名称
+   ===================================================== */
+
+.window-title {
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+
+    padding-left: 10px;
+
+    gap: 8px;
+
+    font-size: 13px;
+
+    color: #222;
+
+    white-space: nowrap;
+}
+
+
+.window-title img {
+    width: 16px;
+    height: 16px;
+
+    object-fit: contain;
+
+    flex-shrink: 0;
+}
+
+
+/* =====================================================
+   三个装饰按钮
+   ===================================================== */
+
+.window-controls {
+    height: 100%;
+
+    display: flex;
+
+    align-items: stretch;
+}
+
+
+.window-control {
+    width: 46px;
+    height: 32px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: #333;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 15px;
+
+    /*
+     * 防止鼠标事件影响拖动
+     */
+    pointer-events: none;
+}
+
+
+/*
+ * 最小化
+ */
+
+.window-control.minimize {
+    font-size: 18px;
+}
+
+
+/*
+ * 最大化
+ */
+
+.window-control.maximize {
+    font-size: 14px;
+}
+
+
+/*
+ * 关闭
+ */
+
+.window-control.close {
+    font-size: 18px;
+}
+
+
+/* =====================================================
+   窗口内容
+   ===================================================== */
+
+.window-content {
+    width: 100%;
+    height: calc(100% - 32px);
+
+    padding: 20px;
+
+    overflow: auto;
+
+    background: #ffffff;
+
+    color: #222;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    /*
+     * 允许内容中的 HTML 正常使用
+     */
+    user-select: text;
+}
+
+
+.window-content h1,
+.window-content h2,
+.window-content h3 {
+    margin-top: 0;
+
+    font-weight: 400;
+}
+
+
+.window-content p {
+    margin: 10px 0;
+}
+
+
+.window-content ul {
+    padding-left: 25px;
+}
+
+
+/* =====================================================
+   示例内容
+   ===================================================== */
+
+.example-box {
+    padding: 12px;
+
+    margin: 15px 0;
+
+    background: #f3f3f3;
+
+    border: 1px solid #ddd;
+}
+
+
+.demo-button {
+    padding: 7px 18px;
+
+    border: none;
+
+    background: #0078d4;
+
+    color: white;
+
+    font-size: 14px;
+
+    cursor: pointer;
+}
+
+
+.demo-button:hover {
+    background: #106ebe;
+}
+
+
+/* =====================================================
+   装饰任务栏
+   ===================================================== */
+
+.fake-taskbar {
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 48px;
+
+    /*
+     * 与桌面使用完全相同的图片
+     */
+    background-image: url("assets/desktop.png");
+
+    background-size: cover;
+    background-position: bottom center;
+
+    /*
+     * 让它看起来像 Windows 10 的任务栏区域
+     */
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+
+    pointer-events: none;
+
+    z-index: 9999;
+}
+
+
+/* =====================================================
+   滚动条
+   ===================================================== */
+
+.window-content::-webkit-scrollbar {
+    width: 10px;
+}
+
+
+.window-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+
+.window-content::-webkit-scrollbar-thumb {
+    background: #c8c8c8;
+}
+
+
+.window-content::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+
+/* =====================================================
+   16:9 屏幕适配
+   ===================================================== */
+
+@media (min-aspect-ratio: 16/9) {
+
+    #desktop {
+        /*
+         * 屏幕比 16:9 更宽时
+         */
+        background-size: cover;
+    }
+}
+
+
+@media (max-aspect-ratio: 16/9) {
+
+    #desktop {
+        /*
+         * 屏幕比 16:9 更窄时
+         */
+        background-size: cover;
+    }
+}
+
+
+/*
+ * 移动设备不做专门适配。
+ * 本项目设计目标为 16:9 桌面显示器。
+ */
