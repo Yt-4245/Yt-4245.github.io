@@ -1,69 +1,180 @@
+ChatGPT 说：
+可以。下面我直接给你一个可运行的三文件版本：
+
+index.html：定义桌面、伪窗口的内容/大小/初始位置/图标/名称
+style.css：Win10 风格 UI、桌面背景、窗口样式
+js.js：窗口拖动逻辑
+支持窗口内容嵌套任意 HTML
+窗口不能最大化、最小化、关闭
+右上角三个按钮仅作装饰，不响应
+桌面和底部“任务栏装饰”使用同一张背景图
+按 16:9 设计
+index.html
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>首页 | Yt-4245.github.io</title>
-    <!-- Katex CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <title>Win10 Fake Desktop</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <!-- 侧边栏 -->
-    <div id="sidebar">
-        <div class="sidebar-icon">
-            <a href= "https://Yt-4245.github.io" class="highlight">
-            <img src="icon1.png" alt="图标">
-            <span class="sidebar-text">首页</span>
-            </a>
+
+<div id="desktop">
+
+    <!-- =========================
+         伪窗口 1
+         ========================= -->
+    <div class="fake-window"
+         style="
+            width: 520px;
+            height: 320px;
+            left: 120px;
+            top: 80px;
+         ">
+
+        <div class="window-titlebar">
+            <div class="window-title">
+                <img src="assets/icon-computer.png" alt="">
+                <span>我的电脑</span>
+            </div>
+
+            <!-- 仅装饰，不可操作 -->
+            <div class="window-controls">
+                <div class="window-control minimize">−</div>
+                <div class="window-control maximize">□</div>
+                <div class="window-control close">×</div>
+            </div>
         </div>
-        <div class="sidebar-icon">
-            <a href= "https://yt-4245.github.io/article">
-            <img src="articleicon.png" alt="图标">
-            <span class="sidebar-text">文章广场</span>
-            </a>
+
+        <div class="window-content">
+
+            <h2>我的电脑</h2>
+
+            <p>
+                这是一个伪 Windows 10 窗口。
+            </p>
+
+            <div class="example-box">
+                <strong>本地磁盘 (C:)</strong>
+                <br>
+                123 GB 可用空间
+            </div>
+
+            <p>
+                窗口可以拖动，但不能最小化、最大化或者关闭。
+            </p>
+
         </div>
     </div>
 
-    <div class="header">Welcome to my small universe!</div>
-    
-    <!-- 主内容区域 -->
-    <div id="main">
-        emm... I have a lot thing to do and the old UI was so ugly so I will put this version here until I fixed the UI but I think it may is impossible in years.(write in 2026/7/22)
-        <div class="katex-formula">
-            This is an KaTeX test:<br>
-            <span id="formula"></span>
+
+    <!-- =========================
+         伪窗口 2
+         ========================= -->
+    <div class="fake-window"
+         style="
+            width: 600px;
+            height: 400px;
+            left: 720px;
+            top: 140px;
+         ">
+
+        <div class="window-titlebar">
+
+            <div class="window-title">
+                <img src="assets/icon-notepad.png" alt="">
+                <span>记事本</span>
+            </div>
+
+            <div class="window-controls">
+                <div class="window-control minimize">−</div>
+                <div class="window-control maximize">□</div>
+                <div class="window-control close">×</div>
+            </div>
+
         </div>
-        
-        <p>Turn down can see the butten what can go to the top , but I think it is ugly.</p>
-        <div style="height: 1500px;"></div>
+
+        <div class="window-content">
+
+            <h2>欢迎</h2>
+
+            <p>
+                这里可以放任意 HTML。
+            </p>
+
+            <p>
+                例如：
+            </p>
+
+            <ul>
+                <li>图片</li>
+                <li>文字</li>
+                <li>按钮</li>
+                <li>表格</li>
+                <li>甚至其他 HTML 结构</li>
+            </ul>
+
+            <button class="demo-button">
+                示例按钮
+            </button>
+
+        </div>
     </div>
-    
-    <!-- 返回顶部按钮 -->
-    <div id="back-to-top" title="返回顶部"></div>
-    
-    <!-- Katex JS -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-    <script>
-        // 返回顶部按钮
-        window.onscroll = function() {
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                document.getElementById("back-to-top").style.display = "block";
-            } else {
-                document.getElementById("back-to-top").style.display = "none";
-            }
-        };
-        
-        document.getElementById("back-to-top").onclick = function() {
-            window.scrollTo({top: 0, behavior: 'smooth'});
-        };
-        
-        // Katex公式渲染
-        document.addEventListener('DOMContentLoaded', function() {
-            katex.render("c = \\pm\\sqrt{a^2 + b^2}", document.getElementById("formula"), {
-                throwOnError: false
-            });
-        });
-    </script>
+
+
+    <!-- =========================
+         伪窗口 3
+         ========================= -->
+    <div class="fake-window"
+         style="
+            width: 420px;
+            height: 260px;
+            left: 380px;
+            top: 430px;
+         ">
+
+        <div class="window-titlebar">
+
+            <div class="window-title">
+                <img src="assets/icon-info.png" alt="">
+                <span>关于</span>
+            </div>
+
+            <div class="window-controls">
+                <div class="window-control minimize">−</div>
+                <div class="window-control maximize">□</div>
+                <div class="window-control close">×</div>
+            </div>
+
+        </div>
+
+        <div class="window-content">
+
+            <h2>Windows 10</h2>
+
+            <p>
+                Fake Desktop
+            </p>
+
+            <p>
+                Version 1.0
+            </p>
+
+        </div>
+    </div>
+
+
+    <!-- =========================
+         装饰性的任务栏
+         实际上不是任务栏
+         ========================= -->
+    <div class="fake-taskbar"></div>
+
+</div>
+
+<script src="js.js"></script>
+
 </body>
 </html>
